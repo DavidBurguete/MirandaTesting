@@ -37,7 +37,12 @@ class Room{
         return arrayOfAmmountOfDates;
     }
 
-    static availableRooms(rooms, startDate, endDate){}
+    static availableRooms(rooms, startDate, endDate){
+        const arrayOfRoomsAvailable = rooms.filter(room => {
+            return room.occupancyPercentage(startDate, endDate) === "0%";
+        });
+        return arrayOfRoomsAvailable;
+    }
 }
 
 class Booking{
@@ -51,7 +56,7 @@ class Booking{
     }
 
     getFee(){
-        return "";
+        return this.room.price * ((100 - this.room.discount) / 100) * ((100 - this.discount) / 100);
     }
 }
 
