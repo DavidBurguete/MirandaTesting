@@ -7,6 +7,9 @@ class Room{
     }
 
     isOccupied(date){
+        if(!(date instanceof Date)){
+            throw new Error("Non array recived");
+        }
         const occupied = this.bookings.map(booking => {
             return booking.checkIn <= date && date <= booking.checkOut;
         });
@@ -14,6 +17,9 @@ class Room{
     }
 
     occupancyPercentage(startDate, endDate){
+        if(!(startDate instanceof Date) || !(endDate instanceof Date)){
+            throw new Error("It has to be a (valid) date");
+        }
         const ammountOfDates = this.bookings.map(booking => {
             if(booking.checkIn <= startDate && startDate <= booking.checkOut){
                 return (booking.checkOut - startDate)/1000/60/60/24;
@@ -56,7 +62,16 @@ class Booking{
     }
 
     getFee(){
-        return this.room.price * ((100 - this.room.discount) / 100) * ((100 - this.discount) / 100);
+        if(isNaN(parseInt(this.room.price)) || 
+           isNaN(parseInt(this.room.discount)) || 
+           isNaN(parseInt(this.discount)) || 
+           this.room.price < 0 || 
+           this.room.discount < 0 || 
+           this.discount < 0
+        ){
+            throw new Error("Must be a number over 0");
+        }
+        return parseInt(this.room.price * ((100 - this.room.discount) / 100) * ((100 - this.discount) / 100));
     }
 }
 
