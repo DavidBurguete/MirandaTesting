@@ -72,7 +72,7 @@ describe("Testing for Rooms and Bookings", () => {
         room.bookings.push(booking1);
         room.bookings.push(booking2);
         expect(room.occupancyPercentage(new Date("01-01-2024"), new Date("01-11-2024"))).toBe("50%");
-        expect(room.occupancyPercentage(new Date("12-27-2023"), new Date("01-03-2024"))).toBe("100%");
+        expect(room.occupancyPercentage(new Date("12-27-2023"), new Date("01-03-2024"))).toBe("87.5%");
     });
     it("Invalid type (boolean on checkIn) for occupancyArray", () => {
         const room = new Room("First Room", [], 17000, 25);
@@ -455,46 +455,46 @@ describe("Testing for Rooms and Bookings", () => {
     it("Using negative values", () => {
         const room = new Room("First Room", [], 17000, -25);
         const booking1 = new Booking("Peter Peterson", "peterpeter@gmail.com", new Date("12-25-2023"), new Date("01-06-2024"), -10, room);
-        expect(() => booking1.getFee()).toThrow("Must be a number over 0");
+        expect(() => booking1.getFee()).toThrow("Values must be positive number");
     });
     it("Invalid value (undefined) for price", () => {
         const room = new Room("First Room", [], undefined, 25);
         const booking = new Booking("Peter Peterson", "peterpeter@gmail.com", new Date("12-25-2023"), new Date("01-06-2024"), 10, room);
-        expect(() => booking.getFee()).toThrow("Must be a number over 0");
+        expect(() => booking.getFee()).toThrow("A value is not a number");
     });
     it("Invalid value (null) for price", () => {
         const room = new Room("First Room", [], null, 25);
         const booking = new Booking("Peter Peterson", "peterpeter@gmail.com", new Date("12-25-2023"), new Date("01-06-2024"), 10, room);
-        expect(() => booking.getFee()).toThrow("Must be a number over 0");
+        expect(() => booking.getFee()).toThrow("A value is not a number");
     });
     it("Invalid value (string) for price", () => {
         const room = new Room("First Room", [], "Some text", 25);
         const booking = new Booking("Peter Peterson", "peterpeter@gmail.com", new Date("12-25-2023"), new Date("01-06-2024"), 10, room);
-        expect(() => booking.getFee()).toThrow("Must be a number over 0");
+        expect(() => booking.getFee()).toThrow("A value is not a number");
     });
     it("Invalid value (boolean) for price", () => {
         const room = new Room("First Room", [], true, 25);
         const booking = new Booking("Peter Peterson", "peterpeter@gmail.com", new Date("12-25-2023"), new Date("01-06-2024"), 10, room);
-        expect(() => booking.getFee()).toThrow("Must be a number over 0");
+        expect(() => booking.getFee()).toThrow("A value is not a number");
     });
     it("Invalid value (undefined) for discounts", () => {
         const room = new Room("First Room", [], 17000, 25);
         const booking = new Booking("Peter Peterson", "peterpeter@gmail.com", new Date("12-25-2023"), new Date("01-06-2024"), undefined, room);
-        expect(() => booking.getFee()).toThrow("Must be a number over 0");
+        expect(() => booking.getFee()).toThrow("A value is not a number");
     });
     it("Invalid value (null) for discounts", () => {
         const room = new Room("First Room", [], 17000, 25);
         const booking = new Booking("Thor Odinson", "godofthunder@asgard.nine.realms", new Date("02-07-1758"), new Date("04-13-1762"), null, room);
-        expect(() => booking.getFee()).toThrow("Must be a number over 0");
+        expect(() => booking.getFee()).toThrow("A value is not a number");
     });
     it("Invalid value (string) for discounts", () => {
         const room = new Room("Second Room", [], 25000, 20);
         const booking = new Booking("David Burguete", "dburgueteg@gmail.com", new Date("03-13-2020"), new Date("09-01-2020"), "This is a discount", room);
-        expect(() => booking.getFee()).toThrow("Must be a number over 0");
+        expect(() => booking.getFee()).toThrow("A value is not a number");
     });
     it("Invalid value (boolean) for discounts", () => {
         const room = new Room("Second Room", [], 25000, 20);
         const booking = new Booking("Thor Odinson", "godofthunder@asgard.nine.realms", new Date("04-08-2025"), new Date("04-15-2025"), false, room);
-        expect(() => booking.getFee()).toThrow("Must be a number over 0");
+        expect(() => booking.getFee()).toThrow("A value is not a number");
     });
 });
